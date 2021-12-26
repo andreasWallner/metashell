@@ -78,14 +78,15 @@ ubuntu)
   fi
   sudo apt-get -y install \
       git g++ cmake libreadline-dev zip python3-pip libtinfo5 \
-      libtool automake autoconf libltdl-dev pkg-config bison flex
-  sudo -H pip3 install pycodestyle pylint gitpython daemonize mkdocs cheetah3
+      libtool lsb-release automake autoconf libltdl-dev pkg-config bison flex
+  sudo -H python3 -m pip install setuptools
+  sudo -H python3 -m pip install pycodestyle pylint gitpython daemonize mkdocs cheetah3
   PLATFORM_ID="$(tools/detect_platform.sh --id)"
   CLANG_ARCHIVE="clang+llvm-${CLANG_VERSION}-x86_64-linux-gnu-ubuntu-16.04"
   mkdir -p "bin/${PLATFORM_ID}"
   cd "bin/${PLATFORM_ID}"
     wget https://github.com/llvm/llvm-project/releases/download/llvmorg-${CLANG_VERSION}/${CLANG_ARCHIVE}.tar.xz
-    tar -xf ${CLANG_ARCHIVE}.tar.xz
+    tar -xf ${CLANG_ARCHIVE}.tar.xz --no-same-owner
     rm -rf clang
     mv ${CLANG_ARCHIVE} clang
     rm ${CLANG_ARCHIVE}.tar.xz
